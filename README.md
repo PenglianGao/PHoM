@@ -28,6 +28,6 @@ If you find this work useful, please consider citing our paper.
 ## Contact
 For questions or collaboration, feel free to open an issue.
 
-Email: 7223115011@stu.jiangnan.edu.cn
+Email: 840791801@qq.com
 ---
 ✨ Stay tuned!
