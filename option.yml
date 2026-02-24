@@ -1,0 +1,68 @@
+#
+# @Author: wjm
+# @Date: 2019-10-13 21:45:10
+# @LastEditTime: 2019-10-13 21:46:06
+# @Description: file content
+# 
+
+name: Net
+algorithm: PHOM #panmamba_baseline_taylor_ablation_1_order #panmamba_baseline_taylor_ablation_3_order #chunk_pan #panmamba_baseline_finalversion #u2net_fusionmamba #panmamba_baseline_finalversion #panmamba_baseline_fusionmamba #u2net_fusionmamba #panmamba_baseline_fusionmamba #panmamba_baseline_fremamba #panmamba_baseline_finalversion # baseResMambaIRConv #frepanmamba_draft_mambaIR #frepanmamba_draft_new   # pnn #frepanmamba_draft_new  #panmamba_baseline_finalversion #frepanmamba_draft_new.py #panmamba_baseline_finalversion #maunetv4_ns #ugcn_s4nba0  pan_unfolding_v4
+nEpochs: 500
+gpu_mode: True
+save_best: True
+gpus: [1]
+threads:  4 #num_works
+log_dir: log/
+
+
+seed: 123 #123
+checkpoint: checkpoint
+
+data_dir_train: /media/manman/data_disk/pancode/GF2_data/train128
+data_dir_eval: /media/manman/data_disk/pancode/GF2_data/eval128
+
+source_ms: ms
+source_pan: pan
+
+pretrain:
+  pretrained: False
+  pre_sr: /yours/latest.pth
+  pre_folder: /yours
+  #fine_sr: /data/b507/gpl/PycharmWorkspace/SOTA/Pansharpening-hnet/pan-sharpening/checkpoint/chunk_pan_m4_dualbranch_attnfusion_4_GPU[1]_2025-08-11-15-45-36_yaogan_WV2_data_train128/best.pth
+  fine_sr: /yours/bestPSNR.pth
+  fine_folder: /yours
+
+test:  #用于指标测试的代码
+  algorithm: u2net_fusionmamba #panmamba_baseline_finalversion #pannetffft
+  type: test #[test, eval]
+  data_dir: /media/manman/data_disk/pancode/GF2_data/test128
+  source_ms: ms
+  source_pan: pan 
+  model: /yours/bestPSNR.pth
+
+  save_dir: ./checkpoint/
+data:
+  upsacle:  4
+  batch_size: 4 #4
+  patch_size: 32
+  data_augmentation: False
+  n_colors: 4
+  rgb_range: 255
+  normalize : False
+  
+schedule:
+  lr: 5e-4 #5e-6 #1e-2
+  decay: 500
+  gamma: 0.1
+  optimizer: ADAM #[ADAM, SGD, RMSprop]
+  momentum: 0.9 #SGD momentum
+  beta1: 0.9 #ADAM beta1
+  beta2: 0.999 #ADAM beta
+  epsilon: 1e-8 #ADAM epsilon
+  alpha: 0.9 #RMSprop alpha
+  weight_dency: 0
+  gclip: 4 #0.4   #0.4  0.04
+  loss: L1
+  use_YCbCr: False
+
+
